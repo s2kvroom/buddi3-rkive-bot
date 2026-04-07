@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>buddi3 | rkive sims</title>
+
+<style>
+body {
+  background: #0f0f0f;
+  color: white;
+  font-family: Arial;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.chat {
+  width: 90%;
+  max-width: 500px;
+}
+
+#chatbox {
+  background: #1a1a1a;
+  padding: 15px;
+  border-radius: 10px;
+  height: 400px;
+  overflow-y: auto;
+}
+
+.msg {
+  margin: 10px 0;
+}
+
+.user {
+  text-align: right;
+}
+
+.bot {
+  color: #ff4fd8;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 8px;
+  border: none;
+}
+</style>
+</head>
+
+<body>
+
+<div class="chat">
+  <div id="chatbox">
+    <div class="msg bot">Hi, I’m buddi3 💻 Ask me about rkive sims pricing, process, turnaround, or the SIM guarantee.</div>
+  </div>
+
+  <input id="input" placeholder="Ask something..." onkeypress="send(event)">
+</div>
+
+<script>
+const knowledge = [
+  {
+    key: ["price", "cost"],
+    text: "Pricing depends on the project scope. Every system is custom-built. After you submit an intake form, we confirm pricing before starting."
+  },
+  {
+    key: ["turnaround", "time"],
+    text: "Turnaround depends on complexity. Smaller builds can take a few days, larger systems take longer. You’ll get a timeline after confirmation."
+  },
+  {
+    key: ["process", "how"],
+    text: "You submit an intake form. We contact you by email to confirm before starting. Midway, you’ll see a preview and can request changes until you're satisfied."
+  },
+  {
+    key: ["guarantee"],
+    text: "The SIM guarantee means you're involved throughout. We confirm before starting, show progress midway, and adjust based on your feedback."
+  }
+];
+
+function send(e) {
+  if (e.key === "Enter") {
+    const input = document.getElementById("input");
+    const text = input.value;
+    add(text, "user");
+
+    let reply = "I can help with pricing, process, turnaround, or the SIM guarantee.";
+
+    knowledge.forEach(item => {
+      item.key.forEach(k => {
+        if (text.toLowerCase().includes(k)) {
+          reply = item.text;
+        }
+      });
+    });
+
+    setTimeout(() => add(reply, "bot"), 300);
+    input.value = "";
+  }
+}
+
+function add(text, type) {
+  const box = document.getElementById("chatbox");
+  const div = document.createElement("div");
+  div.className = "msg " + type;
+  div.innerText = text;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+}
+</script>
+
+</body>
+</html>
